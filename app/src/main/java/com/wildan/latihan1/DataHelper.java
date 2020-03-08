@@ -3,30 +3,64 @@ package com.wildan.latihan1;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
 import android.util.Log;
+
+import com.wildan.latihan1.latihan.TabelSoal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "latihan";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DB_NAME = "latihan";
+    private static final int DB_VERSION = 8;
+
+    private final String CREATE_TABLE_QUERY = "CREATE TABLE " + latihan.TabelSoal.TABLE_NAME +
+            "(" +
+            TabelSoal._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            TabelSoal.COLUMN_SOAL + " TEXT, " +
+            TabelSoal.COLUMN_OPTION1 + " TEXT, " +
+            TabelSoal.COLUMN_OPTION2 + " TEXT, " +
+            TabelSoal.COLUMN_OPTION3 + " TEXT, " +
+            TabelSoal.COLUMN_OPTION4 + " TEXT, " +
+            TabelSoal.COLUMN_ANSWER + " TEXT " +
+            ")";
+
+    private final String DROP_TABLE_QUERY = "DROP TABLE IF EXISTS " + TabelSoal.TABLE_NAME;
     public DataHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
     }
+
+    private SQLiteDatabase db;
+    private List<Soal> mSoalList;
+
+    private Bundle categoryIntentBundle;
+
+    public DataHelper(Context context, Bundle bundle) {
+        super(context, DB_NAME, null, DB_VERSION);
+        this.categoryIntentBundle = bundle;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table soal(no integer primary key autoincrement, pertanyaan text, pilA text, pilB text, pilC text, pilD, text, jwbbenar text);";
-        Log.d("Data", "onCreate: " + sql);
-        db.execSQL(sql);
-        sql = "INSERT INTO soal (no, pertanyaan, jwbbenar) VALUES ('1. Ibukota Negara Kesatuan Republik Indonesia adalah ?', 'Medan','Jakarta','Bandung','Surabaya','Jakarta')," +
-                "('2. Presiden Pertama Negara Indonesia adalah','Suharto','M.Yamin','Sukarno','Jokowi','Sukarno')," +
-                "('3. Lagu Kebangsaan Republik INdonesia adalah','Maju Takgentar','Indonesia Merdeka','Indonesia Raya','Himne guru','Indonesia Raya')," +
-                "('4. Lambang Negara Kesatuan Republik Indonesia adalah','Burung ELang','Burung Nuri','Burung Kakatua','Burung Garuda','Burung Garuda')," +
-                "('5. Bendera Negara Kesatuan Republik Indoesia adalah','Merah kuning','Merah Putih','Merah Jambu','Merah biru','Merah Putih');";
-        db.execSQL(sql);
-    }
-    @Override
-    public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
+        this.db = db;
+        db.execSQL(CREATE_TABLE_QUERY);
 
+        setUpSoal();
+        insertSoal();
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(DROP_TABLE_QUERY);
+        onCreate(db);
+    }
+
+    private void setUpSoal(){
+        mSoalList = new ArrayList<>();
+
+        mSoalList.add(new Soal("1. Ibukota Negara Kesatuan Republik Indonesia adalah ?","Medan","Jakarta","Bandung","Surabaya","Jakarta"));
     }
 
 }

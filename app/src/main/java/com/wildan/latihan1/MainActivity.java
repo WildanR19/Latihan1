@@ -3,6 +3,8 @@ package com.wildan.latihan1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,43 +15,34 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    DataHelper dbhelper;
+    Cursor cursor;
     TextView pertanyaan;
     Button tombolnext;
     RadioGroup radioGroup;
     RadioButton pilihanA,pilihanB,pilihanC,pilihanD;
     int nomor;
     public static int hasil,benar,salah;
-    String[] pertanyaan_user=new String[]{
-            "1. Ibukota Negara Kesatuan Republik Indonesia adalah ?",
-            "2. Presiden Pertama Negara Indonesia adalah",
-            "3. Lagu Kebangsaan Republik INdonesia adalah",
-            "4. Lambang Negara Kesatuan Republik Indonesia adalah",
-            "5. Bendera Negara Kesatuan Republik Indoesia adalah"
-    };
-    String[] jawaban=new String[]{
-            "Medan","Jakarta","Bandung","Surabaya",
-            "Suharto","M.Yamin","Sukarno","Jokowi",
-            "Maju Takgentar","Indonesia Merdeka","Indonesia Raya","Himne guru",
-            "Burung ELang","Burung Nuri","Burung Kakatua","Burung Garuda",
-            "Merah kuning","Merah Putih","Merah Jambu","Merah biru"
-    };
-    String[] jawaban_Benar=new String[]{
-            "Jakarta",
-            "Sukarno",
-            "Indonesia Raya",
-            "Burung Garuda",
-            "Merah Putih"
-    };
+    TextView pertanyaan_user, jawaban, jawaban_Benar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dbhelper = new DataHelper(this);
         pertanyaan=(TextView)findViewById(R.id.pertanyaan);
         radioGroup=(RadioGroup)findViewById(R.id.radiogrup);
         pilihanA=(RadioButton)findViewById(R.id.pilihanA);
         pilihanB=(RadioButton)findViewById(R.id.pilihanB);
         pilihanC=(RadioButton)findViewById(R.id.pilihanC);
         pilihanD=(RadioButton)findViewById(R.id.pilihanD);
+
+        SQLiteDatabase db = dbhelper.getReadableDatabase();
+        cursor = db.rawQuery("SELECT * FROM biodata WHERE nama = '" +
+                getIntent().getStringExtra("nama") + "'",null);
+        cursor.moveToFirst();
+
         pertanyaan.setText(pertanyaan_user[0]);
         pilihanA.setText(jawaban[0]);
         pilihanB.setText(jawaban[1]);

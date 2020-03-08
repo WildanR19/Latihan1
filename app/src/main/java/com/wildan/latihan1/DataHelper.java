@@ -14,22 +14,15 @@ public class DataHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table soal(no integer primary key, pertanyaan text, jwbbenar text);";
+        String sql = "create table soal(no integer primary key autoincrement, pertanyaan text, pilA text, pilB text, pilC text, pilD, text, jwbbenar text);";
         Log.d("Data", "onCreate: " + sql);
         db.execSQL(sql);
-        String sqla = "create table jawaban(jwb text);";
-        Log.d("Data", "onCreate: " + sqla);
-        db.execSQL(sqla);
-        sql = "INSERT INTO soal (no, pertanyaan, jwbbenar) VALUES ('1', '1. Ibukota Negara Kesatuan Republik Indonesia adalah ?', 'Jakarta')," +
-                "('2','2. Presiden Pertama Negara Indonesia adalah','Sukarno')," +
-                "('3','3. Lagu Kebangsaan Republik INdonesia adalah','Indonesia Raya');";
+        sql = "INSERT INTO soal (no, pertanyaan, jwbbenar) VALUES ('1. Ibukota Negara Kesatuan Republik Indonesia adalah ?', 'Medan','Jakarta','Bandung','Surabaya','Jakarta')," +
+                "('2. Presiden Pertama Negara Indonesia adalah','Suharto','M.Yamin','Sukarno','Jokowi','Sukarno')," +
+                "('3. Lagu Kebangsaan Republik INdonesia adalah','Maju Takgentar','Indonesia Merdeka','Indonesia Raya','Himne guru','Indonesia Raya')," +
+                "('4. Lambang Negara Kesatuan Republik Indonesia adalah','Burung ELang','Burung Nuri','Burung Kakatua','Burung Garuda','Burung Garuda')," +
+                "('5. Bendera Negara Kesatuan Republik Indoesia adalah','Merah kuning','Merah Putih','Merah Jambu','Merah biru','Merah Putih');";
         db.execSQL(sql);
-        sqla = "INSERT INTO jawaban VALUES ('Medan'),('Jakarta'),('Bandung'),('Surabaya')," +
-                "('Suharto'),('M.Yamin'),('Sukarno'),('Jokowi')," +
-                "('Maju Takgentar'),('Indonesia Merdeka'),('Indonesia Raya'),('Himne guru')," +
-                "('Burung ELang'),('Burung Nuri'),('Burung Kakatua'),('Burung Garuda')," +
-                "('Merah kuning'),('Merah Putih'),('Merah Jambu'),('Merah biru');";
-        db.execSQL(sqla);
     }
     @Override
     public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {

@@ -1,5 +1,6 @@
 package com.wildan.latihan1;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -48,7 +49,7 @@ public class DataHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_QUERY);
 
         setUpSoal();
-        insertSoal();
+        //insertSoal();
     }
 
     @Override
@@ -61,6 +62,25 @@ public class DataHelper extends SQLiteOpenHelper {
         mSoalList = new ArrayList<>();
 
         mSoalList.add(new Soal("1. Ibukota Negara Kesatuan Republik Indonesia adalah ?","Medan","Jakarta","Bandung","Surabaya","Jakarta"));
+        mSoalList.add(new Soal("2. Presiden Pertama Negara Indonesia adalah","Suharto","M.Yamin","Sukarno","Jokowi","Sukarno"));
+        mSoalList.add(new Soal("3. Lagu Kebangsaan Republik INdonesia adalah","Maju Takgentar","Indonesia Merdeka","Indonesia Raya","Himne guru","Indonesia Raya"));
+        mSoalList.add(new Soal("4. Lambang Negara Kesatuan Republik Indonesia adalah","Burung ELang","Burung Nuri","Burung Kakatua","Burung Garuda","Burung Garuda"));
+        mSoalList.add(new Soal("5. Bendera Negara Kesatuan Republik Indoesia adalah","Merah kuning","Merah Putih","Merah Jambu","Merah biru","Merah Putih"));
     }
 
+    //tambahan untuk insert soal
+    private void insertSoal(){
+        for(Soal q : mSoalList) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(TabelSoal.COLUMN_SOAL, q.getmSoal());
+            contentValues.put(TabelSoal.COLUMN_OPTION1, q.getmOption1());
+            contentValues.put(TabelSoal.COLUMN_OPTION2, q.getmOption2());
+            contentValues.put(TabelSoal.COLUMN_OPTION3, q.getmOption3());
+            contentValues.put(TabelSoal.COLUMN_OPTION4, q.getmOption4());
+            contentValues.put(TabelSoal.COLUMN_ANSWER, q.getmAnswer());
+            db.insert(TabelSoal.TABLE_NAME, null, contentValues);
+        }
+    }
+
+    
 }

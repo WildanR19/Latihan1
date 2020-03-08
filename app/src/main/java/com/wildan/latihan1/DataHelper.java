@@ -2,6 +2,7 @@ package com.wildan.latihan1;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ public class DataHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "latihan";
     private static final int DB_VERSION = 8;
 
-    private final String CREATE_TABLE_QUERY = "CREATE TABLE " + latihan.TabelSoal.TABLE_NAME +
+    private final String CREATE_TABLE_QUERY = "CREATE TABLE " + TabelSoal.TABLE_NAME +
             "(" +
             TabelSoal._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TabelSoal.COLUMN_SOAL + " TEXT, " +
@@ -68,6 +69,29 @@ public class DataHelper extends SQLiteOpenHelper {
         mSoalList.add(new Soal("5. Bendera Negara Kesatuan Republik Indoesia adalah","Merah kuning","Merah Putih","Merah Jambu","Merah biru","Merah Putih"));
     }
 
+    public List<Soal> getmSoal(){
+        List<Soal> listSoal = new ArrayList<Soal>();
+        String query = "select * from "+ TabelSoal.TABLE_NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                Soal s = new Soal();
+                s.setmSoal(cursor.getString(1));
+                s.setmOption1(cursor.getString(2));
+                s.setmOption2(cursor.getString(3));
+                s.setmOption3(cursor.getString(4));
+                s.setmOption4(cursor.getString(5));
+                s.setmAnswer(cursor.getString(6));
+                listSoal.add(s);
+            }while(cursor.moveToNext());
+        }
+
+        return listSoal;
+    }
+
     //tambahan untuk insert soal
     private void insertSoal(){
         for(Soal q : mSoalList) {
@@ -82,5 +106,5 @@ public class DataHelper extends SQLiteOpenHelper {
         }
     }
 
-    
+
 }

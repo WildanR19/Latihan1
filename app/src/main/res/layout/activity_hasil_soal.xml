@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HasilSoal">
+
+    <TextView
+        android:id="@+id/jdul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hasil Test"
+        android:layout_centerHorizontal="true"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/hsljwb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hasil Jawaban"
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/jdul"
+        android:layout_marginTop="80dp"
+        />
+
+    <TextView
+        android:id="@+id/bnr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jawaban Benar : "
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/hsljwb"
+        />
+
+    <TextView
+        android:id="@+id/jwbbnr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_toRightOf="@+id/bnr"
+        android:layout_below="@+id/hsljwb"
+        />
+
+    <TextView
+        android:id="@+id/slh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jawaban Salah : "
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/bnr"
+        />
+
+    <TextView
+        android:id="@+id/jwbslh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_toRightOf="@+id/slh"
+        android:layout_below="@+id/bnr"
+        />
+
+    <TextView
+        android:id="@+id/n"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nilai : "
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/slh"
+        />
+
+    <TextView
+        android:id="@+id/nilai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_toRightOf="@+id/n"
+        android:layout_below="@+id/slh"
+        />
+
+    <Button
+        android:id="@+id/ulang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Ulang"
+        android:textSize="20dp"
+        android:layout_below="@+id/n"
+        android:onClick="ulang"
+        />
+</RelativeLayout>
